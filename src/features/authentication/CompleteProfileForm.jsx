@@ -3,21 +3,23 @@ import TextField from "../../ui/TextField";
 import RadioInput from "../../ui/RadioInput";
 import { useMutation } from "@tanstack/react-query";
 import { completeProfile } from "../../services/authService";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Loading from "../../ui/Loading";
 import { useNavigate } from "react-router-dom";
 
-function CompleteProfileForm() {
+function CompleteProfileFrom() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const navigate = useNavigate();
+
   const { mutateAsync, isPending } = useMutation({
     mutationFn: completeProfile,
   });
 
-  const handleSubmit = async (e) => {
+  const handlSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const { user, message } = await mutateAsync({ name, email, role });
       toast.success(message);
@@ -36,7 +38,7 @@ function CompleteProfileForm() {
   return (
     <div className="flex justify-center pt-10">
       <div className="w-full sm:max-w-sm">
-        <form className="space-y-8" onSubmit={handleSubmit}>
+        <form className="space-y-8" onSubmit={handlSubmit}>
           <TextField
             label="نام و نام خانوادگی"
             name="name"
@@ -53,17 +55,17 @@ function CompleteProfileForm() {
             <RadioInput
               label="کارفرما"
               value="OWNER"
+              onChange={(e) => setRole(e.target.value)}
               id="OWNER"
               name="role"
-              onChange={(e) => setRole(e.target.value)}
               checked={role === "OWNER"}
             />
             <RadioInput
               label="فریلنسر"
               value="FREELANCER"
+              onChange={(e) => setRole(e.target.value)}
               id="FREELANCER"
               name="role"
-              onChange={(e) => setRole(e.target.value)}
               checked={role === "FREELANCER"}
             />
           </div>
@@ -81,5 +83,4 @@ function CompleteProfileForm() {
     </div>
   );
 }
-
-export default CompleteProfileForm;
+export default CompleteProfileFrom;

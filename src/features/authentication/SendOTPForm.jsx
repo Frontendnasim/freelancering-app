@@ -4,7 +4,7 @@ import Loading from "../../ui/Loading";
 function SendOTPForm({ onSubmit, isSendingOtp, phoneNumber, onChange }) {
   return (
     <div>
-      <form className="space-y-8" onSubmit={onsubmit}>
+      <form className="space-y-8" onSubmit={onSubmit}>
         <TextField
           label="شماره موبایل"
           name="phoneNumber"
